@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="myCss.css">
+
+
+
+</head>
+<body>
+
+<div id = 'nav_bar'>
+    <button class = 'btn' id= "back">Back</button>
+    <button class = 'btn' id= "fwr">Forward</button>
+    <div id = "address">
+        <input type="text" id="root_address">
+        <button id="go_to_address">Go To</button>
+    </div>
+</div>
+
+<div class = 'table_div'>
+    <div id = 'browser'>
+        <ul id="browser_ul"></ul>
+    </div>
+    <div id = 'content'></div>
+</div>
+
+
+<div id="context_menu">
+    <span class="menu_item" id="create_directory">Create directory</span>
+    <span class="menu_item" id="create_file">Create new file</span>
+    <span class="menu_item" id="rename_file">Rename</span>
+    <span class="menu_item" id="delete_file">Delete</span>
+</div>
+
+<div id="text_file_container">
+<textarea id="file_text">
+
+</textarea>
+    <button class="file_button" id="save">Save</button>
+    <button class="file_button" id="exit">Exit</button>
+</div>
+
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="myjs.js"></script>
+<script src="myJquery.js"></script>
+</body>
+</html>

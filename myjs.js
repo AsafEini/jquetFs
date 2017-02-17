@@ -71,15 +71,13 @@ FileSystem.prototype.deleteFile = function(id){
 
     for(var i = 0; i < this._files.length; i++){
         if(this._files[i]){
-        if(this._files[i]._parentId == fileToDelete._id){
-            this._files[i] = undefined;
-        }
+            if(this._files[i]._parentId == fileToDelete._id){
+                this._files[i] = undefined;
+            }
         }
     }
 
     this._files[id] = undefined;
-
-
 
 };
 

@@ -132,6 +132,7 @@ function initContextMenu() {
     addListenerClickToCreateFile();
     addListenerClickToRename();
     addListenerClickToDelete();
+    addListenerClickToGoButton();
 }
 
 
@@ -268,12 +269,21 @@ function addListenerClickToRename() {
         if(newName == null){
             return
         }
+
         if(newName ==''){
             alert('please choose a name!')
         } else{
 
         var targetFile = fileSystem.getFileById(targetId);
         var theParent = fileSystem.findParent(targetId);
+
+        for(var i = 0; i < theParent._children.length; i++){
+            if(theParent._children[i]._name == newName){
+                alert('Name Already Exists');
+                return;
+
+            }
+        }
         if(newName !== targetFile._name){
             closeBrowserDirectory(theParent._id);
             targetFile._name = newName;
@@ -283,7 +293,7 @@ function addListenerClickToRename() {
             }
 
 
-        } else {
+        } else{
             alert('name already exists')
         }
         targetId = -1;
@@ -308,6 +318,36 @@ function addListenerClickToDelete() {
         targetId = -1;
     });
 
+}
+
+function addListenerClickToGoButton(){
+    $('#go_to_address').click(function(){
+        var searchPath = $('#root_address').val();
+        searchPath = searchPath.split('\\');
+        if(searchPath[0] !== 'Root'){
+            alert('No Such Address Called: '+searchPath)
+        }
+
+        var currentFolderId = 0;
+        var flag = true;
+        var index = 1;
+
+        while(flag && index < searchPath.length){
+            var file = fileSystem.getFileById(currentFolderId);
+            if(fileSystem.isFileNameExist(currentFolderId,searchPath[index],'directory')){
+                for(var i = 0; i < file._children.length; i++){
+                    if(file._children[i]._name === searchPath[index]){
+                        currentFolderId = file._children[i]._id
+                    }
+                }
+            } else {
+                alert('no path called '+ ($('#root_address').val()));
+                flag = false;
+            }
+            index++
+        }
+        drawContent(currentFolderId);
+    });
 }
 
 
@@ -409,6 +449,6 @@ function updateCurrentRootAddress(fileId){
         folderName += "\\";
         address += folderName;
     }
-
+    address = address.substring(0, address.length-1);
     $('#root_address').val(address);
 }
